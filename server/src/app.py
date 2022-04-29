@@ -52,7 +52,8 @@ def dog(dog_id):
             }), 400)
         return jsonify(resp)
     if str(request.method).upper() == 'DELETE':
-        return jsonify(dog_object.delete(dog_id))
+        if(dog_object.delete(dog_id) == 1):
+            return jsonify({ "cit-api:dogs": "http://127.0.0.1:6000/dogs"})
     
     dog_returns = {}
     dog_returns["dog"] = dog
@@ -96,7 +97,8 @@ def cat(cat_id):
             }), 400)
         return jsonify(resp)
     if str(request.method).upper() == 'DELETE':
-        return jsonify(cat_object.delete(cat_id))
+        if(cat_object.delete(cat_id) == 1):
+            return jsonify({ "cit-api:cats": "http://127.0.0.1:6000/cats"})
     
     cat_returns = {}
     cat_returns["cat"] = cat
