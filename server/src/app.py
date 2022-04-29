@@ -69,7 +69,7 @@ def cats():
 
 @app.route('/cats/<cat_id>', methods=['GET', 'PUT', 'DELETE'])
 def cat(cat_id):
-    cat_object = cat()
+    cat_object = Cat()
     cat = cat_object.get({"id": cat_id})
     if cat is None:
         return make_response(jsonify({"error": "cat id not found."}), 404)
