@@ -29,7 +29,12 @@ def dogs():
     if str(request.method).upper() == 'DELETE':
         return jsonify(dog.delete(request.json))
     dogs = dog.get()
-    return jsonify(dogs)
+    
+    
+    dogs_returns = {}
+    dogs_returns["_embedded"] = dogs
+    dogs_returns["_links"] = { "root": "http://127.0.0.1:6000/", "self": "http://127.0.0.1:6000/dogs/"} 
+    return jsonify(dogs_returns)
 
 @app.route('/dogs/<dog_id>', methods=['GET', 'PUT', 'DELETE'])
 def dog(dog_id):
@@ -48,7 +53,11 @@ def dog(dog_id):
         return jsonify(resp)
     if str(request.method).upper() == 'DELETE':
         return jsonify(dog_object.delete(dog_id))
-    return jsonify(dog)
+    
+    dog_returns = {}
+    dog_returns["_embedded"] = cat
+    dog_returns["_links"] = { "cit-apu:cats": "http://127.0.0.1:6000/dogs", "self": "http://127.0.0.1:6000/dogs/"+dog_id} 
+    return jsonify(dog_returns)
 
 @app.route('/cats', methods=['POST', 'GET', 'PUT', 'DELETE'])
 def cats():
@@ -65,7 +74,11 @@ def cats():
     if str(request.method).upper() == 'DELETE':
         return jsonify(cat.delete(request.json))
     cats = cat.get()
-    return jsonify(cats)
+
+    cats_returns = {}
+    cats_returns["_embedded"] = cats
+    cats_returns["_links"] = { "root": "http://127.0.0.1:6000/", "self": "http://127.0.0.1:6000/cats/"} 
+    return jsonify(cats_returns)
 
 @app.route('/cats/<cat_id>', methods=['GET', 'PUT', 'DELETE'])
 def cat(cat_id):
@@ -84,7 +97,11 @@ def cat(cat_id):
         return jsonify(resp)
     if str(request.method).upper() == 'DELETE':
         return jsonify(cat_object.delete(cat_id))
-    return jsonify(cat)
+    
+    cat_returns = {}
+    cat_returns["_embedded"] = cat
+    cat_returns["_links"] = { "cit-apu:cats": "http://127.0.0.1:6000/cats", "self": "http://127.0.0.1:6000/cats/"+cat_id} 
+    return jsonify(cat_returns)
 
 if __name__ == "__main__":
     app.run(debug=True,host='0.0.0.0',port=6000)
