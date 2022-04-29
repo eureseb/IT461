@@ -55,7 +55,7 @@ def dog(dog_id):
         return jsonify(dog_object.delete(dog_id))
     
     dog_returns = {}
-    dog_returns["_embedded"] = cat
+    dog_returns["_embedded"] = dog
     dog_returns["_links"] = { "cit-apu:cats": "http://127.0.0.1:6000/dogs", "self": "http://127.0.0.1:6000/dogs/"+dog_id} 
     return jsonify(dog_returns)
 
