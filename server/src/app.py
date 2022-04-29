@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, make_response, g
 from models.dog import Dog
+from models.cat import Cat
 from db import Db
 
 app = Flask(__name__)
@@ -48,9 +49,10 @@ def dog(dog_id):
     if str(request.method).upper() == 'DELETE':
         return jsonify(dog_object.delete(dog_id))
     return jsonify(dog)
+
 @app.route('/cats', methods=['POST', 'GET', 'PUT', 'DELETE'])
 def cats():
-    cat = cat()
+    cat = Cat()
     if str(request.method).upper() == 'POST':
         resp = cat.post(request.json)
         if resp == False:
