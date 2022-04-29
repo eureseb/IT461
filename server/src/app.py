@@ -56,7 +56,7 @@ def dog(dog_id):
     
     dog_returns = {}
     dog_returns["dog"] = dog
-    dog_returns["_links"] = { "cit-api:cats": "http://127.0.0.1:6000/dogs", "self": "http://127.0.0.1:6000/dogs/"+dog_id} 
+    dog_returns["_links"] = { "cit-api:dogs": "http://127.0.0.1:6000/dogs", "self": "http://127.0.0.1:6000/dogs/"+dog_id} 
     return jsonify(dog_returns)
 
 @app.route('/cats', methods=['POST', 'GET', 'PUT', 'DELETE'])
