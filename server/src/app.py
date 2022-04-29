@@ -11,7 +11,7 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     # Experimental root
-    links = { "_links": {"citu-api:dogs": "http://127.0.0.1:6000/dogs", "cit-apu:cats": "http://127.0.0.1:6000/cats"} }
+    links = { "_links": {"citu-api:dogs": "http://127.0.0.1:6000/dogs", "cit-api:cats": "http://127.0.0.1:6000/cats"} }
     return jsonify(links)
 
 @app.route('/dogs', methods=['POST', 'GET', 'PUT', 'DELETE'])
@@ -32,7 +32,7 @@ def dogs():
     
     
     dogs_returns = {}
-    dogs_returns["_embedded"] = dogs
+    dogs_returns["dogs"] = dogs
     dogs_returns["_links"] = { "root": "http://127.0.0.1:6000/", "self": "http://127.0.0.1:6000/dogs/"} 
     return jsonify(dogs_returns)
 
@@ -55,8 +55,8 @@ def dog(dog_id):
         return jsonify(dog_object.delete(dog_id))
     
     dog_returns = {}
-    dog_returns["_embedded"] = dog
-    dog_returns["_links"] = { "cit-apu:cats": "http://127.0.0.1:6000/dogs", "self": "http://127.0.0.1:6000/dogs/"+dog_id} 
+    dog_returns["dog"] = dog
+    dog_returns["_links"] = { "cit-api:cats": "http://127.0.0.1:6000/dogs", "self": "http://127.0.0.1:6000/dogs/"+dog_id} 
     return jsonify(dog_returns)
 
 @app.route('/cats', methods=['POST', 'GET', 'PUT', 'DELETE'])
@@ -76,7 +76,7 @@ def cats():
     cats = cat.get()
 
     cats_returns = {}
-    cats_returns["_embedded"] = cats
+    cats_returns["cats"] = cats
     cats_returns["_links"] = { "root": "http://127.0.0.1:6000/", "self": "http://127.0.0.1:6000/cats/"} 
     return jsonify(cats_returns)
 
@@ -99,8 +99,8 @@ def cat(cat_id):
         return jsonify(cat_object.delete(cat_id))
     
     cat_returns = {}
-    cat_returns["_embedded"] = cat
-    cat_returns["_links"] = { "cit-apu:cats": "http://127.0.0.1:6000/cats", "self": "http://127.0.0.1:6000/cats/"+cat_id} 
+    cat_returns["cat"] = cat
+    cat_returns["_links"] = { "cit-api:cats": "http://127.0.0.1:6000/cats", "self": "http://127.0.0.1:6000/cats/"+cat_id} 
     return jsonify(cat_returns)
 
 if __name__ == "__main__":
