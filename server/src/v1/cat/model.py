@@ -1,6 +1,6 @@
 from db import Db
 
-class catModel():
+class CatModel():
     def sanitize(self, cats):
         if not isinstance(cats, (list, tuple)):
             cats = [cats]
