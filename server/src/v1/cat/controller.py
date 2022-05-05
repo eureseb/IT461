@@ -1,11 +1,11 @@
 from flask import request, make_response, jsonify
-from v1.cat.model import catModel
+from v1.cat.model import CatModel
 
 class CatController():
     _instance = None
 
     def __init__(self) -> None:
-        self._instance = catModel()
+        self._instance = CatModel()
 
     def post(self):
         print(request.json)
