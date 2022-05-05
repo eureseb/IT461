@@ -1,11 +1,11 @@
 from flask import request, make_response, jsonify
-from v1.dog.model import DogModel
+from v1.cat.model import catModel
 
 class CatController():
     _instance = None
 
     def __init__(self) -> None:
-        self._instance = DogModel()
+        self._instance = catModel()
 
     def post(self):
         print(request.json)
@@ -16,30 +16,30 @@ class CatController():
             }), 400)
         return jsonify(resp)
 
-    def check(self, dog_id):
-        dog = self._instance.read({"id": dog_id})
-        if dog is None:
-            return make_response(jsonify({"error": "Dog id not found."}), 404)
-        return dog
+    def check(self, cat_id):
+        cat = self._instance.read({"id": cat_id})
+        if cat is None:
+            return make_response(jsonify({"error": "cat id not found."}), 404)
+        return cat
 
-    def get(self, dog_id=None):
-        if dog_id is not None:
-            dog = self.check(dog_id)
-            if not isinstance(dog, dict):
+    def get(self, cat_id=None):
+        if cat_id is not None:
+            cat = self.check(cat_id)
+            if not isinstance(cat, dict):
 
-                return dog
-            return jsonify(dog)
-        dogs = self._instance.read()
-        return jsonify(dogs)
+                return cat
+            return jsonify(cat)
+        cats = self._instance.read()
+        return jsonify(cats)
 
-    def put(self, dog_id=None):
-        if dog_id is not None:
-            dog = self.check(dog_id)
-            if not isinstance(dog, dict):
-                return dog
-            dog_data = request.json
-            dog_data['id'] = dog_id
-            resp = self._instance.update(dog_data)
+    def put(self, cat_id=None):
+        if cat_id is not None:
+            cat = self.check(cat_id)
+            if not isinstance(cat, dict):
+                return cat
+            cat_data = request.json
+            cat_data['id'] = cat_id
+            resp = self._instance.update(cat_data)
             if resp == False:
                 return make_response(jsonify({
                     "error": "Failed to update. There are items in your request that are invalid."
@@ -47,10 +47,10 @@ class CatController():
             return jsonify(resp)
         return jsonify(self._instance.update(request.json))
 
-    def delete(self, dog_id=None):
-        if dog_id is not None:
-            dog = self.check(dog_id)
-            if not isinstance(dog, dict):
-                return dog
-            return jsonify(self._instance.delete(dog_id))
+    def delete(self, cat_id=None):
+        if cat_id is not None:
+            cat = self.check(cat_id)
+            if not isinstance(cat, dict):
+                return cat
+            return jsonify(self._instance.delete(cat_id))
         return jsonify(self._instance.delete(request.json))
