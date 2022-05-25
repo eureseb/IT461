@@ -1,26 +1,26 @@
-version: "3"
+version: '3'
 services:
   app:
     build: ./app
     links:
       - db
     ports:
-      - "6000:6000"
+      - '8080:8080'
     restart: always
     volumes:
       - ../src:/app
-    container_name: "flask-app"
+    container_name: 'flask-app'
 
   db:
     image: mysql:8.0.28
     ports:
-      - "3366:3366"
+      - '3366:3366'
     expose:
-      - "3366"
+      - '3366'
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - ./db-schema:/docker-entrypoint-initdb.d
       - ./mysql-data:/var/lib/mysql
     command: mysqld --sql_mode=""
-    container_name: "flask-db"
+    container_name: 'flask-db'
