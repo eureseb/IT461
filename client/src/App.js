@@ -4,6 +4,8 @@ import Home from './components/Home';
 import Layout from './components/Layout';
 import Dogs from './components/dogs/Dogs';
 import DogDelete from './components/dogs/DogDelete';
+import Cats from './components/cats/Cats';
+import CatDelete from './components/cats/CatDelete';
 import Admin from './components/Admin';
 import Missing from './components/Missing';
 import Unauthorized from './components/Unauthorized';
