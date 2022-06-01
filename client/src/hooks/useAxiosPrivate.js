@@ -1,28 +1,28 @@
-import { axiosPrivate } from "../api/axios";
-import { useEffect } from "react";
-import useRefreshToken from "./useRefreshToken";
-import useAuth from "./useAuth";
+import { axiosPrivate } from '../api/axios';
+import { useEffect } from 'react';
+import useRefreshToken from './useRefreshToken';
+import useAuth from './useAuth';
 
 const useAxiosPrivate = () => {
-    const refresh = useRefreshToken();
-    const { auth } = useAuth();
+  const refresh = useRefreshToken();
+  const { auth } = useAuth();
 
-    useEffect(() => {
+  useEffect(() => {
+    const requestIntercept = axiosPrivate.interceptors.request.use(
+      config => {
+        if (!config.headers['Authorization']) {
+          //config.headers['Authorization'] = `Bearer ${auth?.accessToken}`;
+        }
+        if (config.url.indexOf('token=') === -1) {
+          config.url += config.url.indexOf('?') === -1 ? '?' : '&';
+          config.url += 'token=' + auth?.accessToken;
+        }
+        return config;
+      },
+      error => Promise.reject(error)
+    );
 
-        const requestIntercept = axiosPrivate.interceptors.request.use(
-            config => {
-                if (!config.headers['Authorization']) {
-                    //config.headers['Authorization'] = `Bearer ${auth?.accessToken}`;
-                }
-                if (config.url.indexOf('token=') === -1) {
-                    config.url += (config.url.indexOf('?') === -1)? '?' : '&';
-                    config.url += 'token=' + auth?.accessToken;
-                }
-                return config;
-            }, (error) => Promise.reject(error)
-        );
-
-        /*
+    /*
         const responseIntercept = axiosPrivate.interceptors.response.use(
             response => response,
             async (error) => {
@@ -38,13 +38,13 @@ const useAxiosPrivate = () => {
         );
         */
 
-        return () => {
-            axiosPrivate.interceptors.request.eject(requestIntercept);
-            //axiosPrivate.interceptors.response.eject(responseIntercept);
-        }
-    }, [auth, refresh])
+    return () => {
+      axiosPrivate.interceptors.request.eject(requestIntercept);
+      //axiosPrivate.interceptors.response.eject(responseIntercept);
+    };
+  }, [auth, refresh]);
 
-    return axiosPrivate;
-}
+  return axiosPrivate;
+};
 
 export default useAxiosPrivate;

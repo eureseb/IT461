@@ -2,7 +2,8 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Home from './components/Home';
 import Layout from './components/Layout';
-import Dogs from './components/Dogs';
+import Dogs from './components/dogs/Dogs';
+import DeleteDog from './components/dogs/DogDelete';
 import Admin from './components/Admin';
 import Missing from './components/Missing';
 import Unauthorized from './components/Unauthorized';
@@ -10,7 +11,6 @@ import Lounge from './components/Lounge';
 import LinkPage from './components/LinkPage';
 import RequireAuth from './components/RequireAuth';
 import { Routes, Route } from 'react-router-dom';
-import DeleteDog from './components/Delete';
 
 const ROLES = {
   User: 2001,
